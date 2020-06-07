@@ -3,9 +3,13 @@ import axios from "axios";
 
 export default class PlantList extends Component {
 
-  state = {
-    plants: []
-  }
+  constructor() {
+    super()
+    this.state = {
+      plants: [],
+      search: ''
+  }}
+  
 
   componentDidMount() {
     axios.get('http://localhost:3333/plants')
@@ -15,6 +19,18 @@ export default class PlantList extends Component {
         plants: res.data.plantsData
       })
     })
+  }
+
+
+filterPlants = (e) => {
+    this.setState({
+      search: e.target.value
+    })
+    this.setState({
+      plants: this.state.plants.filter(plant => 
+        plant.name.toLowerCase().trim().includes(this.state.search)
+        )
+      })
   }
 
   
@@ -28,6 +44,11 @@ export default class PlantList extends Component {
   render() {
     return (
       <main className="plant-list">
+
+        <input
+        placeholder='Search'
+        onChange={event => this.filterPlants(event)}></input>
+
         {this.state?.plants?.map((plant) => (
           <div className="plant-card" key={plant.id}>
             <img className="plant-image" src={plant.img} alt={plant.name} />

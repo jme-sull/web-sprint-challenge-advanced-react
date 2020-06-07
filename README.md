@@ -30,13 +30,32 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. Explain how to build stateful class components.
 
+To create a stateful component we first declare a class component by extending the React.Component parent class. We then call the constructor function and use super() so we have access to "this". Then we set up state using the this.state = {}'; syntax setting up some state to pass as props. For example
+class App extend React.Component {
+constructor() {
+super();
+this.state = {
+message: 'hello world!'
+};
+Message could then be passed as props to child components using {this.state.message}
+
+
+
 2. Describe the different phases of the component lifecycle.
+
+The three phases of component lifecycle are Mounting, Updating, and Unmounting. Mounting happens first - consturctor is run, state is initalized, and render builds a virtaul dom. Then updating, which happens when new props are passed it or state is updated. Finally unmounting, where any event-listeners are cleaned up and the application is removed from the dom. 
 
 3. Demonstrate an understanding of class component lifecycle methods.
 
+The three class component lifecycle methods are componentDidMount (runs after mounting phase is complete), componentDidUpdate (runs after updating is complete) and compnentWillUnmount which runs after unmounting is complete. 
+
 4. Define stateful logic.
+Stateful logic is logic (usually a function) built into a react component that also deals with state. For example, a click handler that updates state is stateful logic
 
 5. Describe how to test a React component with React Testing Library.
+
+The first step to test a React component with React Testing Library is to import react-testing-library and any needed named exports into the file. To begin testing, the first step is to Arrange - we do this by using the render method to render the element we would like to test the virtual dom. We then Act - this is done by using a query method to search the DOM for a specifc node we would expect to find. Finally, we need to assert that the node we are testing has been rendered. We would do this by using the Jest function 'expect' and a Jest DOM method such as .toBeInTheDocument()
+
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 

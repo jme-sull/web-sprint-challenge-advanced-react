@@ -2,6 +2,38 @@ import React, { Component } from "react";
 import axios from "axios";
 
 export default class PlantList extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      plants: [],
+      search: ''
+  }}
+  
+
+  componentDidMount() {
+    axios.get('http://localhost:3333/plants')
+    .then (res => {
+      console.log(res)
+      this.setState({
+        plants: res.data.plantsData
+      })
+    })
+  }
+
+
+filterPlants = (e) => {
+    this.setState({
+      search: e.target.value
+    })
+    this.setState({
+      plants: this.state.plants.filter(plant => 
+        plant.name.toLowerCase().trim().includes(this.state.search)
+        )
+      })
+  }
+
+  
   // add state with a property called "plants" - initialize as an empty array
 
   // when the component mounts:
@@ -12,6 +44,11 @@ export default class PlantList extends Component {
   render() {
     return (
       <main className="plant-list">
+
+        <input
+        placeholder='Search'
+        onChange={event => this.filterPlants(event)}></input>
+
         {this.state?.plants?.map((plant) => (
           <div className="plant-card" key={plant.id}>
             <img className="plant-image" src={plant.img} alt={plant.name} />
